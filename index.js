@@ -49,15 +49,16 @@ async function main() {
  app.use(express.static(path.join(__dirname,"/public")));
 
 const  store=MongoStore.create({
-  mongoURL:MONGO_URL,
+  mongoUrl:MONGO_URL,
   crypto:{
-    secret:process.env.MONGO_URL,
+    secret:process.env.SECRET,
   },
   touchAfter:24*3600,
 });
 
 //  Sessions
    const sessionsOptions={
+    store,
     secret:process.env.SECRET,
     resave:false,
     saveUninitialized:true,
@@ -67,11 +68,6 @@ const  store=MongoStore.create({
       httpOnly:true,
     },
    };
-
-
-//     app.get("/",(req,res)=>{
-//   res.send("Hi i am Root");
-// });
 
 
    app.use(session(sessionsOptions));
@@ -84,10 +80,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-//    app.get("/set", (req, res) => {
-//   req.session.user = "Roshan";   // 👈 writing into session
-//   res.send("Session is set");
-// });
+
 
    app.use((req,res,next)=>{
     res.locals.success=req.flash("success");
