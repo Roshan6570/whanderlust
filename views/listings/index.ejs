@@ -34,7 +34,55 @@
     align-items: center;
   }
  
-  </style>
+</style>
+
+<style>
+  #filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center; /* center on larger screens */
+    gap: 1rem;
+  }
+
+  .filter {
+    flex: 0 0 auto;
+    text-align: center;
+    opacity: 0.7;
+    min-width: 70px;
+  }
+
+  .filter:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+
+  .filter p {
+    font-size: 0.8rem;
+    margin-top: 0.3rem;
+  }
+
+  /* Responsive - Mobile (3 icons per row) */
+  @media (max-width: 768px) {
+    #filters {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* 3 icons per row */
+      gap: 1rem;
+      text-align: center;
+    }
+
+    .filter {
+      margin: 0 auto;
+    }
+
+    .tax-toggle {
+      grid-column: span 3; /* tax toggle takes full width */
+      margin: 1rem auto;
+      text-align: center;
+    }
+  }
+</style>
+
   <div id="filters">
     <div class="filter">
      <div><i class="fa-solid fa-fire"></i></div> 
